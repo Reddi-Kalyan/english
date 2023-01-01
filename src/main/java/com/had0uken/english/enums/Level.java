@@ -34,8 +34,8 @@ public enum Level {
             "presentation. Can express themselves spontaneously, very fluently and precisely, differentiating " +
             "finer shades of meaning even in more complex situations.");
 
-    private String level;
-    private String description;
+    private final String level;
+    private final String description;
 
     Level(String level, String description) {
         this.level = level;

@@ -17,41 +17,43 @@ import java.util.Random;
 
 @Controller
 public class MyController {
-    final static int AMOUNT_OF_QUESTIONS=20;
+    //Amount of questions for one test
+    final static private int AMOUNT_OF_QUESTIONS = 20;
 
     //Service Questions from database
     @Autowired
-    QuestionService questionService;
+    private QuestionService questionService;
+    //Counter of points of a test
     @Autowired
-    PointCounter pointCounter;
+    private PointCounter pointCounter;
+    //Counter of english level according to a test
     @Autowired
-    LevelCounter levelCounter;
+    private LevelCounter levelCounter;
     //It contains random questions from database for test
-    List<Question> currentQuestions = new ArrayList<>();
+    private List<Question> currentQuestions = new ArrayList<>();
     //starting index of question from currentQuestions list
-    int index=-1;
+    private int index = -1;
     //Max value of possible points of a test
-    int totalPoints=0;
+    private int totalPoints = 0;
     //value of points got by user during a test
-    int userPoints=0;
-
+    private int userPoints = 0;
 
 
     @RequestMapping("/")
-    public String showStartView(){
+    public String showStartView() {
         return "start-view";
     }
 
     @RequestMapping("/testStart")
-    public String showTestView(){
+    public String showTestView() {
         List<Question> allQuestions = questionService.getAllQuestions();
 
         Random random = new Random();
-        int totalPoints=0;
-        int userPoints=0;
-        while (currentQuestions.size()<AMOUNT_OF_QUESTIONS){
+        totalPoints = 0;
+        userPoints = 0;
+        while (currentQuestions.size() < AMOUNT_OF_QUESTIONS) {
             int rand = random.nextInt(allQuestions.size());
-            if(!currentQuestions.contains(allQuestions.get(rand)))
+            if (!currentQuestions.contains(allQuestions.get(rand)))
                 currentQuestions.add(allQuestions.get(rand));
         }
 
@@ -60,25 +62,25 @@ public class MyController {
     }
 
     @RequestMapping("/test")
-    public String goToTest(Model model){
+    public String goToTest(Model model) {
 
-            index++;
-        if(index<AMOUNT_OF_QUESTIONS) {
+        index++;
+        if (index < AMOUNT_OF_QUESTIONS) {
             model.addAttribute("curQuestionAtt", currentQuestions.get(index));
             model.addAttribute("amountAtt", AMOUNT_OF_QUESTIONS);
-            model.addAttribute("indexAtt",index);
+            model.addAttribute("indexAtt", index);
             return "roll-question-view";
-        }
-        else
-
-        {
-            index=-1;
+        } else {
+            index = -1;
             currentQuestions.clear();
             model.addAttribute("totalPointsAtt", totalPoints);
             model.addAttribute("userPointsAtt", userPoints);
-            model.addAttribute("levelAtt", levelCounter.getLevelByScore(totalPoints,userPoints).getLevel());
-            model.addAttribute("adviceAtt", levelCounter.getLevelByScore(totalPoints,userPoints).getDescription());
-
+            model.addAttribute("levelAtt", levelCounter.getLevelByScore(totalPoints, userPoints).getLevel());
+            model.addAttribute("adviceAtt", levelCounter.getLevelByScore(totalPoints, userPoints).getDescription());
+            System.out.println("totalPoints" + totalPoints);
+            System.out.println("userPoints" + userPoints);
+            System.out.println("levelAtt" + levelCounter.getLevelByScore(totalPoints, userPoints).getLevel());
+            System.out.println("adviceAtt" + levelCounter.getLevelByScore(totalPoints, userPoints).getDescription());
             return "test-final-view";
         }
 
@@ -86,23 +88,14 @@ public class MyController {
 
 
     @RequestMapping("/receive")
-    public String receiveAnswer(@ModelAttribute("choiceAtt") Integer choice){
-            //current question
-            Question theQuestion=currentQuestions.get(index);
-            System.out.println(theQuestion);
-            System.out.println(choice + " was chosen");
-            System.out.println(theQuestion.getCorrectAnswer() + "is correct answer");
-            totalPoints+=pointCounter.getPoints(theQuestion);
-            if(choice==theQuestion.getCorrectAnswer())userPoints+=pointCounter.getPoints(theQuestion);
+    public String receiveAnswer(@ModelAttribute("choiceAtt") Integer choice) {
+        //current question
+        Question theQuestion = currentQuestions.get(index);
+
+        totalPoints += pointCounter.getPoints(theQuestion);
+        if (choice == theQuestion.getCorrectAnswer()) userPoints += pointCounter.getPoints(theQuestion);
 
         return "redirect:/test";
 
     }
-
-
-
-
-
-
-
 }
