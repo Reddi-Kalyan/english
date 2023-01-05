@@ -17,4 +17,10 @@ public class QuestionServiceImpl implements QuestionService{
     public List<Question> getAllQuestions() {
         return questionDao.getAllQuestions();
     }
+
+    @Transactional
+    @Override
+    public void saveQuestion(Question question) {
+        questionDao.saveNewQuestion(question);
+    }
 }

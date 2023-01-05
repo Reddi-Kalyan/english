@@ -1,6 +1,8 @@
 package com.had0uken.english.dao;
 
 
+
+
 import com.had0uken.english.entity.Question;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -19,6 +21,12 @@ public class QuestionDaoImpl implements QuestionDao{
         Session session = sessionFactory.getCurrentSession();
         List<Question> allQuestions = session.createQuery("from Question").getResultList();
         return allQuestions;
+    }
+
+    @Override
+    public void saveNewQuestion(Question question) {
+        Session session = sessionFactory.getCurrentSession();
+        session.save(question);
     }
 
 }

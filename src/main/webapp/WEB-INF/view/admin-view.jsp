@@ -6,7 +6,7 @@
 </head>
 <body>
 <br>
-
+hi,admin!
 <form:form action="testStart" >
     <input type="submit" value="GO TEST!">
 </form:form>
