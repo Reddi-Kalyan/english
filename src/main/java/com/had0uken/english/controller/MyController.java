@@ -4,7 +4,9 @@ package com.had0uken.english.controller;
 import com.had0uken.english.counting.LevelCounter;
 import com.had0uken.english.counting.PointCounter;
 import com.had0uken.english.entity.Question;
+import com.had0uken.english.entity.User;
 import com.had0uken.english.service.QuestionService;
+import com.had0uken.english.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -26,6 +28,10 @@ public class MyController {
     //Service Questions from database
     @Autowired
     private QuestionService questionService;
+    //Service users from database
+    @Autowired
+    private UserService userService;
+
     //Counter of points of a test
     @Autowired
     private PointCounter pointCounter;
@@ -113,6 +119,11 @@ public class MyController {
     }
 
 
+    @RequestMapping("/adminPage")
+    public String adminPage(Model model){
+        return "admin-view";
+    }
+
     @RequestMapping("/addNewQuestions")
     public String addNewQuestions(Model model){
         Question question = new Question();
@@ -126,5 +137,14 @@ public class MyController {
     public String saveNewQuestion(@ModelAttribute("questionAtt")Question question){
         questionService.saveQuestion(question);
         return "redirect:/addNewQuestions";
+    }
+
+    @RequestMapping("/listOfUsers")
+    public String listOfUsers(Model model){
+        List<User>allUsers = userService.getAllUsers();
+        System.out.println(allUsers.get(0).getUsername());
+        System.out.println(allUsers);
+        model.addAttribute("allUsersAtt",allUsers);
+        return "all-users-view";
     }
 }

@@ -7,17 +7,27 @@
 <body>
 <br>
 hi,admin!
-<form:form action="testStart" >
-    <input type="submit" value="GO TEST!">
-</form:form>
+
+<br>
+<br>
+<security:authorize access="hasRole('ADMIN')">
+
+    <form:form action="addNewQuestions">
+        <input type="submit" value="ADD NEW QUESTIONS">
+    </form:form>
+</security:authorize>
 
 
 <br>
 <br>
 
 
-<form:form action="addNewQuestions">
-    <input type="submit" value="ADD NEW QUESTIONS">
-</form:form>
+<security:authorize access="hasRole('ADMIN')">
+    <form:form action="listOfUsers">
+        <input type="submit" value="GET ALL USERS LIST">
+    </form:form>
+</security:authorize>
+
+
 </body>
 </html>

@@ -1,0 +1,48 @@
+1) CREATE DB
+
+A1		Grammar	Vocabulary
+
+A2		Vocabulary Grammar
+
+B1		Grammar  Vocabulary
+
+B2		Vocabulary Grammar
+
+С1		Grammar Vocabulary
+
+
+DONE!!!
+
+2) CREATE PROJECT
+
+DONE!!!
+
+3)CREATE FIRST VIEW
+
+DONE!!!
+
+4) CREATE TEST LOGIC
+
+DONE!!!
+
+5) CREATE GITHUB REPOSITORY
+
+DONE!!!
+
+6)TEST
+
+переделать счетчики на интерфейсы, изменить тесты с вынесенной логикой
+
+DONE!!!
+
+7) ADD SECURITY
+
+DONE!!!
+
+8) ADD BAN ABILITY
+
+-------------------------------------------------------------?????????????????
+
+9) ADD CONTROLLER AND SERVICE TESTS
+
+....
