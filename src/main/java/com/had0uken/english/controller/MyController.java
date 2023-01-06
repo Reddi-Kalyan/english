@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,32 +120,46 @@ public class MyController {
     }
 
 
-    @RequestMapping("/adminPage")
-    public String adminPage(Model model){
+    @RequestMapping("/admin/adminPage")
+    public String adminPage() {
         return "admin-view";
     }
 
-    @RequestMapping("/addNewQuestions")
-    public String addNewQuestions(Model model){
+    @RequestMapping("/admin/addNewQuestions")
+    public String addNewQuestions(Model model) {
         Question question = new Question();
-        model.addAttribute("questionAtt",question);
+        model.addAttribute("questionAtt", question);
 
         return "add-questions-view";
     }
 
 
-    @RequestMapping("/saveQuestion")
-    public String saveNewQuestion(@ModelAttribute("questionAtt")Question question){
+    @RequestMapping("/admin/saveQuestion")
+    public String saveNewQuestion(@ModelAttribute("questionAtt") Question question) {
         questionService.saveQuestion(question);
-        return "redirect:/addNewQuestions";
+        return "redirect:/admin/addNewQuestions";
     }
 
-    @RequestMapping("/listOfUsers")
-    public String listOfUsers(Model model){
-        List<User>allUsers = userService.getAllUsers();
-        System.out.println(allUsers.get(0).getUsername());
-        System.out.println(allUsers);
-        model.addAttribute("allUsersAtt",allUsers);
+    @RequestMapping("/admin/listOfUsers")
+    public String listOfUsers(Model model) {
+        List<User> allUsers = userService.getAllUsers();
+        model.addAttribute("allUsersAtt", allUsers);
         return "all-users-view";
     }
+
+
+    @RequestMapping("/admin/banUser")
+    public String banUser(@RequestParam("userId") String user) {
+        System.out.println("ENTER TO THE METHOD");
+        System.out.println(user);
+        userService.banUser(user);
+        return "redirect:/admin/listOfUsers";
+    }
+
+    @RequestMapping("/admin/unBanUser")
+    public String unBanUser(@RequestParam("userId") String user) {
+        userService.unBanUser(user);
+        return "redirect:/admin/listOfUsers";
+    }
+
 }

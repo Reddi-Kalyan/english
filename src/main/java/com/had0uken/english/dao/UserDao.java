@@ -5,5 +5,7 @@ import com.had0uken.english.entity.User;
 import java.util.List;
 
 public interface UserDao {
-    public List<User> getAllUsers();
+    List<User> getAllUsers();
+    void banUser(String username);
+    void unBanUser(String username);
 }

@@ -4,6 +4,7 @@ import com.had0uken.english.entity.Question;
 import com.had0uken.english.entity.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,5 +19,21 @@ public class UserDaoImpl implements UserDao{
         Session session = sessionFactory.getCurrentSession();
         List<User> allUsers = session.createQuery("from User").getResultList();
         return allUsers;
+    }
+
+    @Override
+    public void banUser(String name) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("update User set enabled=0 where username = :paramName");
+        query.setParameter("paramName", name);
+        query.executeUpdate();
+    }
+
+    @Override
+    public void unBanUser(String name) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("update User set enabled=1 where username = :paramName");
+        query.setParameter("paramName", name);
+        query.executeUpdate();
     }
 }

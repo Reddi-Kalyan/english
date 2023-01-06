@@ -8,28 +8,41 @@
 <body>
 ALL USERS LIST:
 
-<c:forEach var="u1" items="${allUsersAtt}">
-    ${u1.username}
-    <br>
-    <br>
-</c:forEach>
+
 <br>
 <br>
 <table>
-  <tr>
-    <th>Name</th>
-    <th>Status</th>
-    <th>Button</th>
-  </tr>
-  <c:forEach var="user" items="${allUsersAtt}">
     <tr>
-        <td>${user.username}</td>
-        <td>${user.enabled}</td>
-        <td>
-          3
-        </td>
+        <th>Name</th>
+        <th>Status</th>
+        <th></th>
     </tr>
-  </c:forEach>
+    <c:forEach var="us" items="${allUsersAtt}">
+
+        <c:url var="banButton" value="/admin/banUser">
+            <c:param name="userId" value="${us.username}"/>
+        </c:url>
+
+        <c:url var="ubBanButton" value="/admin/unBanUser">
+            <c:param name="userId" value="${us.username}"/>
+        </c:url>
+
+        <tr>
+            <td>${us.username}</td>
+            <td>
+                <c:if test="${us.enabled>0}">active
+
+                    <input type="button" value="BAN" onClick="window.location.href='${banButton}'"/>
+                </c:if>
+                <c:if test="${us.enabled<1}">banned
+                    <input type="button" value="UNBAN" onClick="window.location.href='${ubBanButton}'"/>
+                </c:if>
+
+            </td>
+
+
+        </tr>
+    </c:forEach>
 </table>
 
 </body>

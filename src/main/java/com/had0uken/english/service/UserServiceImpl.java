@@ -18,4 +18,16 @@ public class UserServiceImpl implements UserService{
     public List<User> getAllUsers() {
         return userDao.getAllUsers();
     }
+
+    @Transactional
+    @Override
+    public void banUser(String username) {
+        userDao.banUser(username);
+    }
+
+    @Transactional
+    @Override
+    public void unBanUser(String username) {
+        userDao.unBanUser(username);
+    }
 }

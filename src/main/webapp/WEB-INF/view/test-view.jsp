@@ -10,7 +10,7 @@
 
 You are gonna answer 20 questions
 
-<form:form action="test" >
+<form:form action="test">
     <input type="submit" value="begin">
 </form:form>
 

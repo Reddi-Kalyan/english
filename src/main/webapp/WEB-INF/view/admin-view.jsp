@@ -12,7 +12,7 @@ hi,admin!
 <br>
 <security:authorize access="hasRole('ADMIN')">
 
-    <form:form action="addNewQuestions">
+    <form:form action="admin/addNewQuestions">
         <input type="submit" value="ADD NEW QUESTIONS">
     </form:form>
 </security:authorize>

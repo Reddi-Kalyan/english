@@ -9,7 +9,7 @@
 <br>
 
 
-<form:form action="testStart" >
+<form:form action="testStart">
     <input type="submit" value="GO TEST!">
 </form:form>
 
@@ -18,7 +18,7 @@
 <br>
 <security:authorize access="hasRole('ADMIN')">
 
-    <form:form action="adminPage">
+    <form:form action="admin/adminPage">
         <input type="submit" value="GO TO ADMIN PAGE">
     </form:form>
 </security:authorize>

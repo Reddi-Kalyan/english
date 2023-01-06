@@ -7,7 +7,7 @@
 </head>
 <body>
 roll-question-view
-<form:form action="receive" modelAttribute="curQuestionAtt" method="get" >
+<form:form action="receive" modelAttribute="curQuestionAtt" method="get">
     Question ${indexAtt+1}/${amountAtt}
     <br>
     <br>
@@ -18,7 +18,6 @@ roll-question-view
     <br>
     Choose the correct answer:
     <br>
-
 
 
     <input type="radio" value="1" name="choiceAtt"> ${curQuestionAtt.answer1}
