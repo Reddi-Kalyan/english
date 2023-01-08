@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface UserService {
      List<User> getAllUsers();
-     void banUser(String username);
-     void unBanUser(String username);
+     void banUser(Integer username);
+     void unBanUser(Integer username);
 
 }

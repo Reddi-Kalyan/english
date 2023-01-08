@@ -2,40 +2,79 @@ package com.had0uken.english.configuration;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.User.UserBuilder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.sql.DataSource;
 
-
+@Configuration
 @EnableWebSecurity
 public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    DataSource dataSource;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private DataSource dataSource;
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception{
-        http.authorizeRequests()
-                .antMatchers("/").hasAnyRole("ADMIN","USER")
-                .antMatchers("/testStart").hasAnyRole("ADMIN","USER")
-                .antMatchers("/admi**").hasRole("ADMIN")
-                .and().formLogin().permitAll();
-    }
+    @Value("${spring.queries.users-query}")
+    private String usersQuery;
+
+    @Value("${spring.queries.roles-query}")
+    private String rolesQuery;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-       /* UserBuilder userBuilder = User.withDefaultPasswordEncoder();
+        auth.jdbcAuthentication().usersByUsernameQuery(usersQuery).authoritiesByUsernameQuery(rolesQuery)
+                .dataSource(dataSource).passwordEncoder(bCryptPasswordEncoder);
+    }
 
-        auth.inMemoryAuthentication()
-                .withUser(userBuilder.username("user").password("user").roles("USER"))
-                .withUser(userBuilder.username("admin").password("admin").roles("ADMIN"));*/
 
-        auth.jdbcAuthentication().dataSource(dataSource);
+    @Override
+    protected void configure(HttpSecurity http) throws Exception{
+       /* http.authorizeRequests()
+                .antMatchers("/").hasAnyRole("ADMIN","USER")
+                .antMatchers("/testStart").hasAnyRole("ADMIN","USER")
+                .antMatchers("/admi**").hasRole("ADMIN")
+                .and().formLogin().permitAll();*/
 
+
+        http.authorizeRequests()
+                .antMatchers("/").permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/register").permitAll()
+                .antMatchers("/home/**").hasAnyRole("SUPER_USER","ADMIN_USER","SITE_USER")
+                .antMatchers("/testStart").hasAnyRole("SUPER_USER","ADMIN_USER","SITE_USER")
+                .antMatchers("/admi**").hasRole("ADMIN_USER")
+                .and()
+                // form login
+				.csrf().disable().formLogin()
+                .loginPage("/login")
+                .failureUrl("/login?error=true")
+                .defaultSuccessUrl("/home")
+                .usernameParameter("email")
+                .passwordParameter("password")
+                .and()
+                // logout
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/").and()
+                .exceptionHandling()
+                .accessDeniedPage("/access-denied");
+    }
+
+
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
     }
 }

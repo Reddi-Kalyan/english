@@ -20,7 +20,7 @@ class LevelCounterImplTest {
     private static Level levelC2 = null;
 
     @BeforeAll
-    public static void init(){
+    public static void setUp(){
         levelCounterImpl = new LevelCounterImpl();
         levelA1 = Level.A1;
         levelA2 = Level.A2;

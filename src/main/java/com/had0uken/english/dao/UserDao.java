@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface UserDao {
     List<User> getAllUsers();
-    void banUser(String username);
-    void unBanUser(String username);
+    void banUser(Integer id);
+    void unBanUser(Integer id);
 }

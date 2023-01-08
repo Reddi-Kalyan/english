@@ -20,21 +20,21 @@ ALL USERS LIST:
     <c:forEach var="us" items="${allUsersAtt}">
 
         <c:url var="banButton" value="/admin/banUser">
-            <c:param name="userId" value="${us.username}"/>
+            <c:param name="userId" value="${us.id}"/>
         </c:url>
 
         <c:url var="ubBanButton" value="/admin/unBanUser">
-            <c:param name="userId" value="${us.username}"/>
+            <c:param name="userId" value="${us.id}"/>
         </c:url>
 
         <tr>
-            <td>${us.username}</td>
+            <td>${us.firstName} ${us.lastName}</td>
             <td>
-                <c:if test="${us.enabled>0}">active
+                <c:if test="${us.password>0}">active
 
                     <input type="button" value="BAN" onClick="window.location.href='${banButton}'"/>
                 </c:if>
-                <c:if test="${us.enabled<1}">banned
+                <c:if test="${us.password<1}">banned
                     <input type="button" value="UNBAN" onClick="window.location.href='${ubBanButton}'"/>
                 </c:if>
 

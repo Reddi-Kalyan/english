@@ -22,18 +22,18 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public void banUser(String name) {
-        Session session = sessionFactory.getCurrentSession();
+    public void banUser(Integer id) {
+        /*Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("update User set enabled=0 where username = :paramName");
         query.setParameter("paramName", name);
-        query.executeUpdate();
+        query.executeUpdate();*/
     }
 
     @Override
-    public void unBanUser(String name) {
-        Session session = sessionFactory.getCurrentSession();
+    public void unBanUser(Integer id) {
+       /* Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("update User set enabled=1 where username = :paramName");
         query.setParameter("paramName", name);
-        query.executeUpdate();
+        query.executeUpdate();*/
     }
 }

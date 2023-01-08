@@ -21,13 +21,13 @@ public class UserServiceImpl implements UserService{
 
     @Transactional
     @Override
-    public void banUser(String username) {
+    public void banUser(Integer username) {
         userDao.banUser(username);
     }
 
     @Transactional
     @Override
-    public void unBanUser(String username) {
+    public void unBanUser(Integer username) {
         userDao.unBanUser(username);
     }
 }

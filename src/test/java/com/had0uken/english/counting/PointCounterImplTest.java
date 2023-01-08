@@ -22,7 +22,7 @@ class PointCounterImplTest {
 
 
     @BeforeAll
-    public static void init() {
+    public static void setUp() {
         pointCounterImpl = new PointCounterImpl();
         list = new ArrayList<>();
         a1 = new Question();

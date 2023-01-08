@@ -48,20 +48,9 @@ public class MyController {
     //value of points got by user during a test
     private int userPoints = 0;
 
-/*@GetMapping("/")
-    public String getInfoForAdmins(){
-        return "admin-view";
-    }
-
-    @GetMapping("/")
-    public String getInfoForUsers(){
-        return "user-view";
-    }*/
-
-
     @RequestMapping("/")
     public String showStartView() {
-        return "start-view";
+        return "redirect:/login";
     }
 
     @RequestMapping("/testStart")
@@ -76,8 +65,6 @@ public class MyController {
             if (!currentQuestions.contains(allQuestions.get(rand)))
                 currentQuestions.add(allQuestions.get(rand));
         }
-
-
         return "test-view";
     }
 
@@ -103,7 +90,6 @@ public class MyController {
             System.out.println("adviceAtt" + levelCounter.getLevelByScore(totalPoints, userPoints).getDescription());
             return "test-final-view";
         }
-
     }
 
 
@@ -116,7 +102,6 @@ public class MyController {
         if (choice == theQuestion.getCorrectAnswer()) userPoints += pointCounter.getPoints(theQuestion);
 
         return "redirect:/test";
-
     }
 
 
@@ -149,7 +134,7 @@ public class MyController {
 
 
     @RequestMapping("/admin/banUser")
-    public String banUser(@RequestParam("userId") String user) {
+    public String banUser(@RequestParam("userId") int user) {
         System.out.println("ENTER TO THE METHOD");
         System.out.println(user);
         userService.banUser(user);
@@ -157,7 +142,7 @@ public class MyController {
     }
 
     @RequestMapping("/admin/unBanUser")
-    public String unBanUser(@RequestParam("userId") String user) {
+    public String unBanUser(@RequestParam("userId") int user) {
         userService.unBanUser(user);
         return "redirect:/admin/listOfUsers";
     }
