@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html>
-<head></head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>English - login</title>
+</head>
 <body>
-<h1>Login</h1>
-<form name='f' action="login" method='POST'>
-	<table>
-		<tr>
-			<td>User:</td>
-			<td><input type='text' name='username' value=''></td>
-		</tr>
-		<tr>
-			<td>Password:</td>
-			<td><input type='password' name='password' /></td>
-		</tr>
-		<tr>
-			<td><input name="submit" type="submit" value="submit" /></td>
-		</tr>
-	</table>
+<form th:action="@{/login}" method="POST">
+    Login
+    <br>
+    <input type="text" id="email" name="email" th:placeholder="Email"/>
+    <br>
+    Password
+    <br>
+    <input type="password" id="password" name="password" th:placeholder="Password"/>
+    <br>
+    <br>
+    <button name="Submit" value="Login" type="Submit" th:text="Login"></button>
+    <a href="/recover-password">Forgot password?</a>
 </form>
 </body>
 </html>

@@ -25,14 +25,17 @@ import java.util.Properties;
 @EnableWebMvc
 public class MyConfig {
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(BCryptPasswordEncoder.BCryptVersion.$2A,5);
+    public BCryptPasswordEncoder passwordEncoder() {
+        BCryptPasswordEncoder bCryptPasswordEncoder =
+                new BCryptPasswordEncoder
+                        (BCryptPasswordEncoder.
+                                BCryptVersion.$2A, 5);
         return bCryptPasswordEncoder;
     }
 
 
     @Bean
-    public ViewResolver viewResolver(){
+    public ViewResolver viewResolver() {
         InternalResourceViewResolver internalResourceViewResolver =
                 new InternalResourceViewResolver();
         internalResourceViewResolver.setPrefix("/WEB-INF/view/");
@@ -41,7 +44,7 @@ public class MyConfig {
     }
 
     @Bean
-    public DataSource dataSource(){
+    public DataSource dataSource() {
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
         try {
             dataSource.setDriverClass("com.mysql.cj.jdbc.Driver");
@@ -55,21 +58,21 @@ public class MyConfig {
     }
 
     @Bean
-    public LocalSessionFactoryBean sessionFactory(){
+    public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setPackagesToScan("com.had0uken.english.entity");
-        Properties  hibProperties = new Properties();
+        Properties hibProperties = new Properties();
         hibProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
         hibProperties.setProperty("hibernate.show_sql", "true");
         sessionFactory.setHibernateProperties(hibProperties);
         return sessionFactory;
 
 
-
     }
+
     @Bean
-    public HibernateTransactionManager transactionManager(){
+    public HibernateTransactionManager transactionManager() {
         HibernateTransactionManager transactionManager = new HibernateTransactionManager();
         transactionManager.setSessionFactory(sessionFactory().getObject());
 

@@ -1,7 +1,12 @@
 package com.had0uken.english.entity;
 
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "auth_role")
@@ -16,14 +21,6 @@ public class Role {
 
     @Column(name = "role_desc")
     private String desc;
-
-    public Role() {
-    }
-
-    public Role(String role, String desc) {
-        this.role = role;
-        this.desc = desc;
-    }
 
     public int getId() {
         return id;

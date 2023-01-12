@@ -6,12 +6,12 @@ import com.had0uken.english.counting.PointCounter;
 import com.had0uken.english.entity.Question;
 import com.had0uken.english.entity.User;
 import com.had0uken.english.service.QuestionService;
+
 import com.had0uken.english.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

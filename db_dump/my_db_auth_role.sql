@@ -23,11 +23,11 @@ DROP TABLE IF EXISTS `auth_role`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `auth_role` (
-  `auth_role_id` int NOT NULL,
+  `auth_role_id` int NOT NULL AUTO_INCREMENT,
   `role_name` varchar(255) DEFAULT NULL,
   `role_desc` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`auth_role_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,7 +36,7 @@ CREATE TABLE `auth_role` (
 
 LOCK TABLES `auth_role` WRITE;
 /*!40000 ALTER TABLE `auth_role` DISABLE KEYS */;
-INSERT INTO `auth_role` VALUES (1,'SUPER_USER','This user has ultimate rights for everything'),(2,'ADMIN_USER','This user has admin rights for administrative work'),(3,'SITE_USER','This user has access to site, agter login - normal user');
+INSERT INTO `auth_role` VALUES (1,'SUPER_USER','This user has ultimate rights for everything'),(2,'ADMIN_USER','This user has admin rights for administrative work'),(3,'SITE_USER','This user has access to site, after login - normal user');
 /*!40000 ALTER TABLE `auth_role` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-01-08 22:55:00
+-- Dump completed on 2023-01-12  1:58:46

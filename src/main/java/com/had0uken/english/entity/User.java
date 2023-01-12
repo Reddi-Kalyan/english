@@ -1,8 +1,19 @@
 package com.had0uken.english.entity;
 
 
-import javax.persistence.*;
+
 import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "auth_user")
@@ -14,7 +25,7 @@ public class User {
     private int id;
 
     @Column(name = "first_name")
-    private String firstName;
+    private String name;
 
     @Column(name = "last_name")
     private String lastName;
@@ -31,29 +42,14 @@ public class User {
     @Column(name = "status")
     private String status;
 
+    @Column(name = "level")
+    private String level;
+
+
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "auth_user_role", joinColumns = @JoinColumn(name = "auth_user_id"), inverseJoinColumns = @JoinColumn(name = "auth_role_id"))
     private Set<Role> roles;
-
-    public User() {
-    }
-
-    public User(String firstName, String lastName, String email, String password, String mobile, String status) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.mobile = mobile;
-        this.status = status;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
 
     public int getId() {
         return id;
@@ -63,12 +59,12 @@ public class User {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getLastName() {
@@ -111,16 +107,34 @@ public class User {
         this.status = status;
     }
 
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", firstName='" + firstName + '\'' +
+                ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", mobile='" + mobile + '\'' +
                 ", status='" + status + '\'' +
+                ", level='" + level + '\'' +
+                ", roles=" + roles +
                 '}';
     }
 }

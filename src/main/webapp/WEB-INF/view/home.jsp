@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>WebEncyclop</title>
+    <meta charset="ISO-8859-1">
+    <title>ENGLISH</title>
 </head>
 <body>
 Hello user

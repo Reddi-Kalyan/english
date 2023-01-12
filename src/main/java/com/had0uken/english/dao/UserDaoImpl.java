@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserDaoImpl implements UserDao{
@@ -23,17 +24,28 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public void banUser(Integer id) {
-        /*Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("update User set enabled=0 where username = :paramName");
-        query.setParameter("paramName", name);
-        query.executeUpdate();*/
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("update User set status='BANNED' where id = :paramName");
+        query.setParameter("paramName", id);
+        query.executeUpdate();
     }
 
     @Override
     public void unBanUser(Integer id) {
-       /* Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("update User set enabled=1 where username = :paramName");
-        query.setParameter("paramName", name);
-        query.executeUpdate();*/
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("update User set status='VERIFIED' where id = :paramName");
+        query.setParameter("paramName", id);
+        query.executeUpdate();
+    }
+
+
+    @Override
+    public Optional<User> getUserByEmail(String email) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("from User where email=:paramName");
+        query.setParameter("paramName",email);
+        Optional<User> optionalUser = query.uniqueResultOptional();
+        return optionalUser;
+
     }
 }
